@@ -24,7 +24,7 @@ public class BoardDto {
     this.lastModifiedBy = lastModifiedBy;
   }
 
-  public BoardDto from(Board board) {
+  public static BoardDto from(Board board) {
     return BoardDto.builder().title(board.getTitle()).content(board.getContents())
         .createdDateTIme(board.getCreatedDateTIme()).lastModifiedTime(board.getLastModifiedTime())
         .lastModifiedBy(board.getLastModifiedBy()).build();
