@@ -25,7 +25,7 @@ public class BoardDto {
   }
 
   public static BoardDto from(Board board) {
-    return BoardDto.builder().title(board.getTitle()).content(board.getContents())
+    return BoardDto.builder().title(board.getTitle()).content(board.getContent())
         .createdDateTIme(board.getCreatedDateTIme()).lastModifiedTime(board.getLastModifiedTime())
         .lastModifiedBy(board.getLastModifiedBy()).build();
   }
