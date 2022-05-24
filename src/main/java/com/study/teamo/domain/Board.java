@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -21,9 +22,11 @@ public class Board extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Setter
   @Column(name = "TITLE", length = 100, nullable = false)
   private String title;
 
+  @Setter
   @Column(name = "CONTENTS", length = 1000)
   private String content;
 
