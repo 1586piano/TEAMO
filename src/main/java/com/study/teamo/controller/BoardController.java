@@ -1,8 +1,8 @@
 package com.study.teamo.controller;
 
-import com.study.teamo.dto.BoardDto;
-import com.study.teamo.dto.CreateBoardDto;
-import com.study.teamo.dto.UpdateBoardDto;
+import com.study.teamo.dto.board.BoardDto;
+import com.study.teamo.dto.board.CreateBoardDto;
+import com.study.teamo.dto.board.UpdateBoardDto;
 import com.study.teamo.service.BoardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -35,17 +35,17 @@ public class BoardController {
   }
 
   @GetMapping("/{id}")
-  public BoardDto getBoard(@PathVariable Long id) {
+  public BoardDto getBoard(@PathVariable("id") Long id) {
     return boardService.getBoard(id);
   }
 
   @DeleteMapping("/{id}")
-  public void deleteBoard(@PathVariable Long id) {
+  public void deleteBoard(@PathVariable("id") Long id) {
     boardService.deleteBoard(id);
   }
 
   @PutMapping("/{id}")
-  public BoardDto updateBoard(@PathVariable Long id, @RequestBody UpdateBoardDto request) {
+  public BoardDto updateBoard(@PathVariable("id") Long id, @RequestBody UpdateBoardDto request) {
     return boardService.updateBoard(id, request);
   }
 }
