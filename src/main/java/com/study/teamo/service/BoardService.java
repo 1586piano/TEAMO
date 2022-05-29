@@ -1,9 +1,9 @@
 package com.study.teamo.service;
 
 import com.study.teamo.domain.Board;
-import com.study.teamo.dto.BoardDto;
-import com.study.teamo.dto.CreateBoardDto;
-import com.study.teamo.dto.UpdateBoardDto;
+import com.study.teamo.dto.board.BoardDto;
+import com.study.teamo.dto.board.CreateBoardDto;
+import com.study.teamo.dto.board.UpdateBoardDto;
 import com.study.teamo.repository.BoardRepository;
 import java.util.List;
 import java.util.stream.Collectors;

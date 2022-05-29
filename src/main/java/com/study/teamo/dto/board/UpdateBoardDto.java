@@ -1,4 +1,4 @@
-package com.study.teamo.dto;
+package com.study.teamo.dto.board;
 
 import lombok.Getter;
 
