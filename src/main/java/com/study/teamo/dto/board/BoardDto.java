@@ -13,20 +13,22 @@ public class BoardDto {
   private final LocalDateTime createdDateTIme;
   private final LocalDateTime lastModifiedTime;
   private final String lastModifiedBy;
+  private final String createdBy;
 
   @Builder
   public BoardDto(String title, String content, LocalDateTime createdDateTIme,
-      LocalDateTime lastModifiedTime, String lastModifiedBy) {
+      LocalDateTime lastModifiedTime, String lastModifiedBy, String createdBy) {
     this.title = title;
     this.content = content;
     this.createdDateTIme = createdDateTIme;
     this.lastModifiedTime = lastModifiedTime;
     this.lastModifiedBy = lastModifiedBy;
+    this.createdBy = createdBy;
   }
 
   public static BoardDto from(Board board) {
     return BoardDto.builder().title(board.getTitle()).content(board.getContent())
         .createdDateTIme(board.getCreatedDateTIme()).lastModifiedTime(board.getLastModifiedTime())
-        .lastModifiedBy(board.getLastModifiedBy()).build();
+        .lastModifiedBy(board.getLastModifiedBy()).createdBy(board.getCreatedBy()).build();
   }
 }
