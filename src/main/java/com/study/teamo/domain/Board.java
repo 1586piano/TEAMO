@@ -1,6 +1,7 @@
 package com.study.teamo.domain;
 
 import com.study.teamo.BaseEntity;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -32,6 +33,10 @@ public class Board extends BaseEntity {
   @Setter
   @Column(name = "CONTENTS", length = 1000)
   private String content;
+
+  @Setter
+  @Column(name = "PERMISSION")
+  private List<User> permissions;
 
   public Board(String title, String content) {
     super();
