@@ -1,6 +1,7 @@
 package com.study.teamo.domain;
 
 import com.study.teamo.BaseEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,6 +26,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Board extends BaseEntity {
 
   @Id
+  @Column(name="BOARD_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -35,13 +39,15 @@ public class Board extends BaseEntity {
   private String content;
 
   @Setter
-  @Column(name = "PERMISSION")
-  private List<User> permissions;
+  @OneToMany
+  @JoinColumn(name = "BOARD_ID")
+  private List<User> permissions = new ArrayList<>();
 
-  public Board(String title, String content) {
+  public Board(String title, String content, List<User> permissions) {
     super();
     this.title = title;
     this.content = content;
+    this.permissions = permissions;
   }
 }
 
