@@ -35,7 +35,7 @@ public class UserSecurityController {
 
   @PostMapping("/login")
   public String login(@RequestBody LoginUserDto request) {
-    User user = userRepository.findByUserId(request.getId())
+    User user = userRepository.findUserById(request.getId())
         .orElseThrow(() -> new IllegalArgumentException(request.getId()));
 
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

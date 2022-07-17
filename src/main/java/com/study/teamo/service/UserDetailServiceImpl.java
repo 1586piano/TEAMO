@@ -26,7 +26,7 @@ public class UserDetailServiceImpl {
     @Override // 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 UserInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
     public UserDto loadUserByUsername(String id)
         throws UsernameNotFoundException { // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
-      return UserDto.from(userRepository.findByUserId(id)
+      return UserDto.from(userRepository.findUserById(id)
           .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다.")));
     }
   }
