@@ -1,13 +1,14 @@
 package com.study.teamo.service;
 
 import com.study.teamo.domain.Board;
+import com.study.teamo.domain.BoardPermission;
 import com.study.teamo.domain.User;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.dto.board.CreateBoardDto;
 import com.study.teamo.dto.board.UpdateBoardDto;
+import com.study.teamo.repository.BoardPermissionRepository;
 import com.study.teamo.repository.BoardRepository;
 import com.study.teamo.repository.UserRepository;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,9 @@ public class BoardService {
 
   @Autowired
   private final UserRepository userRepository;
+
+  @Autowired
+  private final BoardPermissionRepository boardPermissionRepository;
 
   @Transactional
   public BoardDto createBoard(CreateBoardDto request) {
@@ -61,14 +65,15 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
-  //TODO Board User, 테이블 보기. 권한이 뭔가 이상하개 부여되어잇음. 왜 유저에 푯기..?
+  //TODO BOARD 권한은 추가되었는데, 반환 시 오류가 있음.
   @Transactional
   public BoardDto addBoardPermission(Long boardId, String userId) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
     User user = userRepository.findUserById(userId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-    board.setPermissions(Collections.singletonList(user));
+    BoardPermission boardPermission = BoardPermission.builder().board(board).user(user).build();
+    boardPermissionRepository.save(boardPermission);
     return BoardDto.from(board);
   }
 }
