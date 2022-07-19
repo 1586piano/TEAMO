@@ -1,6 +1,6 @@
 package com.study.teamo.dto.board;
 
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.BoardPermission;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -15,11 +15,11 @@ public class CreateBoardDto {
   @NotNull(message = "content must not be null")
   private final String content;
 
-  private final List<User> permissions;
+  private final List<BoardPermission> permissions;
 
   @Builder
   public CreateBoardDto(String title, String content,
-      List<User> permissions) {
+      List<BoardPermission> permissions) {
     this.title = title;
     this.content = content;
     this.permissions = permissions;

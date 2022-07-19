@@ -9,7 +9,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
@@ -26,7 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Board extends BaseEntity {
 
   @Id
-  @Column(name="BOARD_ID")
+  @Column(name = "BOARD_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -39,11 +38,10 @@ public class Board extends BaseEntity {
   private String content;
 
   @Setter
-  @OneToMany
-  @JoinColumn(name = "BOARD_ID")
-  private List<User> permissions = new ArrayList<>();
+  @OneToMany(mappedBy = "board")
+  private List<BoardPermission> permissions = new ArrayList<>();
 
-  public Board(String title, String content, List<User> permissions) {
+  public Board(String title, String content, List<BoardPermission> permissions) {
     super();
     this.title = title;
     this.content = content;
