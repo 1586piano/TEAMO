@@ -61,6 +61,7 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
+  //TODO Board User, 테이블 보기. 권한이 뭔가 이상하개 부여되어잇음. 왜 유저에 푯기..?
   @Transactional
   public BoardDto addBoardPermission(Long boardId, String userId) {
     Board board = boardRepository.findById(boardId)
