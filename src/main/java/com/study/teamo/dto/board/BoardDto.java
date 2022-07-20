@@ -1,10 +1,10 @@
 package com.study.teamo.dto.board;
 
 import com.study.teamo.domain.Board;
-import com.study.teamo.domain.BoardPermission;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,12 +17,12 @@ public class BoardDto {
   private final LocalDateTime lastModifiedTime;
   private final String lastModifiedBy;
   private final String createdBy;
-  private final List<BoardPermission> permissions;
+  private final List<String> permissions;
 
   @Builder
   public BoardDto(String title, String content, LocalDateTime createdDateTIme,
       LocalDateTime lastModifiedTime, String lastModifiedBy, String createdBy,
-      List<BoardPermission> permissions) {
+      List<String> permissions) {
     this.title = title;
     this.content = content;
     this.createdDateTIme = createdDateTIme;
@@ -37,6 +37,7 @@ public class BoardDto {
         .createdDateTIme(board.getCreatedDateTIme()).lastModifiedTime(board.getLastModifiedTime())
         .lastModifiedBy(board.getLastModifiedBy()).createdBy(board.getCreatedBy())
         .permissions(board.getPermissions() == null ? new ArrayList<>()
-            : board.getPermissions()).build();
+            : board.getPermissions().stream().map(bp -> bp.getUsers()).collect(
+                Collectors.toList())).build();
   }
 }

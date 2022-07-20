@@ -65,7 +65,7 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
-  //TODO BOARD 권한은 추가되었는데, 반환 시 오류가 있음.
+  //TODO BOARD 권한은 추가 완료. 여려명은 어떻게 추가?
   @Transactional
   public BoardDto addBoardPermission(Long boardId, String userId) {
     Board board = boardRepository.findById(boardId)

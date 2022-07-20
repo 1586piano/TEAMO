@@ -40,4 +40,8 @@ public class BoardPermission {
     this.board = board;
     this.user = user;
   }
+
+  public String getUsers() {
+    return this.user.getId();
+  }
 }
