@@ -65,13 +65,18 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
-  //TODO BOARD 권한은 추가 완료. 여려명은 어떻게 추가?
+  //TODO BOARD 권한은 추가 완료. 여려명은 ?
   @Transactional
-  public BoardDto addBoardPermission(Long boardId, String userId) {
+  public BoardDto addBoardPermission(Long boardId, List<String> users) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
-    User user = userRepository.findUserById(userId)
-        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+
+    List<User> userList = users.stream().map(u -> userRepository.findUserById(u)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다.")))
+        .collect(Collectors.toList());
+
+    //BoardPermission에 다 저장해도 되지만... 이걸 서비스에서 처리하는게 맞을까?
+
     BoardPermission boardPermission = BoardPermission.builder().board(board).user(user).build();
     boardPermissionRepository.save(boardPermission);
     return BoardDto.from(board);

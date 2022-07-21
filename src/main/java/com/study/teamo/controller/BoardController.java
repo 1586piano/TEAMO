@@ -52,7 +52,7 @@ public class BoardController {
 
   @PutMapping("/permission/{boardId}")
   public BoardDto addBoardPermission(@PathVariable("boardId") Long boardId,
-      @RequestParam(value = "userId", required = true) String userId) {
-    return boardService.addBoardPermission(boardId, userId);
+      @RequestParam(value = "userId", required = true) List<String> users) {
+    return boardService.addBoardPermission(boardId, users);
   }
 }
