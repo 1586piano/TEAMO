@@ -77,8 +77,10 @@ public class BoardService {
 
     //BoardPermission에 다 저장해도 되지만... 이걸 서비스에서 처리하는게 맞을까?
 
-    BoardPermission boardPermission = BoardPermission.builder().board(board).user(user).build();
-    boardPermissionRepository.save(boardPermission);
+    BoardPermission boardPermission = new BoardPermission();
+    userList.stream().map( u -> boardPermission.addPermission(board, u));
+
+    //boardPermissionRepository.save(boardPermission);
     return BoardDto.from(board);
   }
 }

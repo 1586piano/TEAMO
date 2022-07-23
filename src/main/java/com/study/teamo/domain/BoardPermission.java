@@ -41,7 +41,15 @@ public class BoardPermission {
     this.user = user;
   }
 
+  public BoardPermission() {
+  }
+
   public String getUsers() {
     return this.user.getId();
+  }
+
+  public void addPermission(Board board, User user) {
+    this.board = board;
+    this.user = user;
   }
 }
