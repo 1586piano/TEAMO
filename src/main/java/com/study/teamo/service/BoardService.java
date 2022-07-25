@@ -65,22 +65,18 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
-  //TODO BOARD 권한은 추가 완료. 여려명은 ?
+  //TODO : 어색하다. 너무 많은 것을 처리하고 있는 것 같다.
   @Transactional
-  public BoardDto addBoardPermission(Long boardId, List<String> users) {
+  public BoardDto addBoardPermissionToUsers(Long boardId, String userId) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
-
-    List<User> userList = users.stream().map(u -> userRepository.findUserById(u)
-            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다.")))
-        .collect(Collectors.toList());
-
-    //BoardPermission에 다 저장해도 되지만... 이걸 서비스에서 처리하는게 맞을까?
+    User user = userRepository.findUserById(userId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
     BoardPermission boardPermission = new BoardPermission();
-    userList.stream().map( u -> boardPermission.addPermission(board, u));
+    boardPermission.addPermission(board, user);
 
-    //boardPermissionRepository.save(boardPermission);
+    boardPermissionRepository.save(boardPermission);
     return BoardDto.from(board);
   }
 }
