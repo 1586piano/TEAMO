@@ -50,14 +50,9 @@ public class BoardController {
     return boardService.updateBoard(id, request);
   }
 
-  //TODO : 여기도 뭔가 어색하다..
   @PutMapping("/permission/{boardId}")
   public BoardDto addBoardPermission(@PathVariable("boardId") Long boardId,
       @RequestParam(value = "userId", required = true) List<String> users) {
-    BoardDto boardDto = null;
-    for (String user : users) {
-      boardDto = boardService.addBoardPermissionToUsers(boardId, user);
-    }
-    return boardDto;
+    return boardService.addBoardPermissionToUsers(boardId, users);
   }
 }
