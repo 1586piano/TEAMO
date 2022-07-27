@@ -65,7 +65,7 @@ public class BoardService {
     return BoardDto.from(board);
   }
 
-  //TODO : 어색하다. 너무 많은 것을 처리하고 있는 것 같다. 다시 고민해보자.
+  //TODO : 어색하다. 너무 많은 것을 처리하고 있는 것 같다. 다시 고민해보자.ㅎ
   @Transactional
   public BoardDto addBoardPermissionToUsers(Long boardId, List<String> users) {
     Board board = boardRepository.findById(boardId)
@@ -82,6 +82,10 @@ public class BoardService {
 
     return BoardDto.from(board);
   }
-  
+  @Transactional
+  public BoardDto modifyBoardPermissionToUsers(Long boardId, List<String> users) {
+    //TODO : 수정 추가ㅎ
+    return BoardDto.from(board);
+  }
   //TODO : BoardPermission 삭제 추가
 }
