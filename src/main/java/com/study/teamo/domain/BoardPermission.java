@@ -8,16 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Table(name = "BOARD_PERMISSION")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardPermission {
 
   @Id
@@ -41,7 +38,15 @@ public class BoardPermission {
     this.user = user;
   }
 
+  public BoardPermission() {
+  }
+
   public String getUsers() {
     return this.user.getId();
+  }
+
+  public void addPermission(Board board, User user) {
+    this.board = board;
+    this.user = user;
   }
 }
