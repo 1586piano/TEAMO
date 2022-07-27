@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,11 +47,5 @@ public class BoardController {
   @PutMapping("/{id}")
   public BoardDto updateBoard(@PathVariable("id") Long id, @RequestBody UpdateBoardDto request) {
     return boardService.updateBoard(id, request);
-  }
-
-  @PutMapping("/permission/{boardId}")
-  public BoardDto addBoardPermission(@PathVariable("boardId") Long boardId,
-      @RequestParam(value = "userId", required = true) List<String> users) {
-    return boardService.addBoardPermissionToUsers(boardId, users);
   }
 }

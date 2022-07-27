@@ -1,8 +1,6 @@
 package com.study.teamo.service;
 
 import com.study.teamo.domain.Board;
-import com.study.teamo.domain.BoardPermission;
-import com.study.teamo.domain.User;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.dto.board.CreateBoardDto;
 import com.study.teamo.dto.board.UpdateBoardDto;
@@ -64,24 +62,4 @@ public class BoardService {
     board.setContent(request.getContent());
     return BoardDto.from(board);
   }
-
-  //TODO : 어색하다. 너무 많은 것을 처리하고 있는 것 같다. 다시 고민해보자.
-  @Transactional
-  public BoardDto addBoardPermissionToUsers(Long boardId, List<String> users) {
-    Board board = boardRepository.findById(boardId)
-        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
-
-    BoardPermission boardPermission = new BoardPermission();
-
-    for (String userId : users) {
-      User user = userRepository.findUserById(userId)
-          .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-      boardPermission.addPermission(board, user);
-      boardPermissionRepository.save(boardPermission);
-    }
-
-    return BoardDto.from(board);
-  }
-  
-  //TODO : BoardPermission 삭제 추가
 }
