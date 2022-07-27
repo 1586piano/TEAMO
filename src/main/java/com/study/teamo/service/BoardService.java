@@ -21,12 +21,6 @@ public class BoardService {
   @Autowired
   private final BoardRepository boardRepository;
 
-  @Autowired
-  private final UserRepository userRepository;
-
-  @Autowired
-  private final BoardPermissionRepository boardPermissionRepository;
-
   @Transactional
   public BoardDto createBoard(CreateBoardDto request) {
     Board board = new Board(request.getTitle(), request.getContent(), request.getPermissions());
