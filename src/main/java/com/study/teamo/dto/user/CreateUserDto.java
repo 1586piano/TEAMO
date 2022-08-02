@@ -8,15 +8,15 @@ import lombok.Data;
 public class CreateUserDto {
 
   @NotNull
-  private final String id;
+  private final String name;
   @NotNull
   private final String password;
   @NotNull
   private final String auth;
 
   @Builder
-  public CreateUserDto(String id, String password, String auth) {
-    this.id = id;
+  public CreateUserDto(String name, String password, String auth) {
+    this.name = name;
     this.password = password;
     this.auth = auth;
   }
