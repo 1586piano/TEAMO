@@ -22,13 +22,13 @@ public class BoardPermissionController {
 
   @PutMapping("/permission/{boardId}")
   public BoardDto addBoardPermission(@PathVariable("boardId") Long boardId,
-      @RequestParam(value = "userId", required = true) List<String> users) {
+      @RequestParam(value = "userId", required = true) List<Long> users) {
     return boardPermissionService.addBoardPermissionToUsers(boardId, users);
   }
 
   @PutMapping("/permission/{boardId}")
   public BoardDto modifyBoardPermission(@PathVariable("boardId") Long boardId,
-      @RequestParam(value = "userId", required = true) List<String> users) {
+      @RequestParam(value = "userId", required = true) List<Long> users) {
     return boardPermissionService.addBoardPermissionToUsers(boardId, users);
   }
 }

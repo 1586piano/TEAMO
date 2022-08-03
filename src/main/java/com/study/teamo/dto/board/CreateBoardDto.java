@@ -15,13 +15,13 @@ public class CreateBoardDto {
   @NotNull(message = "content must not be null")
   private final String content;
 
-  private final List<BoardPermission> permissions;
+  private final List<Long> userPermissions;
 
   @Builder
   public CreateBoardDto(String title, String content,
-      List<BoardPermission> permissions) {
+      List<Long> userPermissions) {
     this.title = title;
     this.content = content;
-    this.permissions = permissions;
+    this.userPermissions = userPermissions;
   }
 }

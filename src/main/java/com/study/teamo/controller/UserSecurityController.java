@@ -28,20 +28,21 @@ public class UserSecurityController {
   @PostMapping("/signup")
   public UserDto signup(@RequestBody CreateUserDto request) {
     return UserDto.from(userRepository.save(
-        User.builder().id(request.getId()).password(passwordEncoder.encode(request.getPassword()))
+        User.builder().name(request.getName())
+            .password(passwordEncoder.encode(request.getPassword()))
             .auth(
                 request.getAuth()).build()));
   }
 
   @PostMapping("/login")
   public String login(@RequestBody LoginUserDto request) {
-    User user = userRepository.findUserById(request.getId())
-        .orElseThrow(() -> new IllegalArgumentException(request.getId()));
+    User user = userRepository.findUserByName(request.getName())
+        .orElseThrow(() -> new IllegalArgumentException(request.getName()));
 
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
       throw new IllegalArgumentException("Password not matched");
     }
-    return jwtTokenProvider.createToken(user.getId(), user.getAuth());
+    return jwtTokenProvider.createToken(user.getName(), user.getAuth());
   }
 
   @GetMapping("/logout")

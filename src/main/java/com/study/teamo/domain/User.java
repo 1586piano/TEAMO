@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,13 +19,13 @@ import lombok.Setter;
 public class User {
 
   @Id
-  @Column(name = "SYS_ID")
+  @Column(name = "ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long sysId;
+  private Long id;
 
   @Getter
-  @Column(name = "ID", unique = true)
-  private String id;
+  @Column(name = "NAME", unique = true)
+  private String name;
 
   @Getter
   @Column(name = "PASSWORD")
@@ -41,8 +40,8 @@ public class User {
   private List<BoardPermission> permissions = new ArrayList<>();
 
   @Builder
-  public User(String id, String password, String auth) {
-    this.id = id;
+  public User(String name, String password, String auth) {
+    this.name = name;
     this.password = password;
     this.auth = auth;
   }
