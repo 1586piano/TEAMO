@@ -42,7 +42,7 @@ public class BoardPermission {
   }
 
   public String getUsers() {
-    return this.user.getId();
+    return this.user.getName();
   }
 
   public void addPermission(Board board, User user) {
