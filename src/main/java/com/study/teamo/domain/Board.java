@@ -41,11 +41,10 @@ public class Board extends BaseEntity {
   @OneToMany(mappedBy = "board")
   private List<BoardPermission> permissions = new ArrayList<>();
 
-  public Board(String title, String content, List<BoardPermission> permissions) {
+  public Board(String title, String content) {
     super();
     this.title = title;
     this.content = content;
-    this.permissions = permissions;
   }
 }
 
