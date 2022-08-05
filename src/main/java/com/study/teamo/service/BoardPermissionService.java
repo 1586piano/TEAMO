@@ -27,14 +27,14 @@ public class BoardPermissionService {
   private final BoardPermissionRepository boardPermissionRepository;
 
   @Transactional
-  public BoardDto addBoardPermissionToUsers(Long boardId, List<String> users) {
+  public BoardDto addBoardPermissionToUsers(Long boardId, List<Long> users) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
     BoardPermission boardPermission = new BoardPermission();
 
-    for (String userId : users) {
-      User user = userRepository.findUserById(userId)
+    for (Long userId : users) {
+      User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
       boardPermission.addPermission(board, user);
       boardPermissionRepository.save(boardPermission);
@@ -43,13 +43,13 @@ public class BoardPermissionService {
   }
 
   @Transactional
-  public BoardDto modifyBoardPermissionToUsers(Long boardId, List<String> users) {
+  public BoardDto modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
 
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
-    for (String userId : users) {
-      User user = userRepository.findUserById(userId)
+    for (Long userId : users) {
+      User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
@@ -59,6 +59,11 @@ public class BoardPermissionService {
       System.out.println(boardPermission.getUser());
     }
     return BoardDto.from(board);
+  }
+
+  @Transactional
+  public List<Long> getPermissionedUserIdsByBoardID(Long boardId) {
+    return boardPermissionRepository.getUserIdsByBoardId(boardId);
   }
   //TODO : BoardPermission 삭제 추가
 }
