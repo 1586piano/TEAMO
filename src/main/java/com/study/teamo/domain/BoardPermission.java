@@ -41,8 +41,7 @@ public class BoardPermission {
   public BoardPermission() {
   }
 
-  //TODO : Board 반환 시에 권한을 가진 유저도 넘겨주기 위함인데, 꼭 이렇게 해야만 하나? 메소드 명은 적절한가? 퍼미션 반환을 위한 DTO를 따로 두는 방법은 어떠한가?
-  public String getUsers() {
+  public String getUserName() {
     return this.user.getName();
   }
 
