@@ -1,6 +1,5 @@
 package com.study.teamo.dto.board;
 
-import com.study.teamo.domain.BoardPermission;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
