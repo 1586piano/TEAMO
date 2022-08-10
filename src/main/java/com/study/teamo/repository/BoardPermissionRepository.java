@@ -13,6 +13,6 @@ public interface BoardPermissionRepository extends JpaRepository<BoardPermission
   @Query("select bp from BoardPermission bp where board_id=:boardId")
   public List<BoardPermission> getByBoardId(@Param("boardId") Long boardId);
 
-  @Query("select bp.userId from BoardPermission bp where board_id=:boardId")
+  @Query("select bp.user.id from BoardPermission bp where board_id=:boardId")
   public List<Long> getUserIdsByBoardId(@Param("boardId") Long boardId);
 }
