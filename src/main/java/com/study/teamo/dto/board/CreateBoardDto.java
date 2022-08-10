@@ -1,5 +1,6 @@
 package com.study.teamo.dto.board;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -21,6 +22,6 @@ public class CreateBoardDto {
       List<Long> userPermissions) {
     this.title = title;
     this.content = content;
-    this.userPermissions = userPermissions;
+    this.userPermissions = userPermissions == null ? new ArrayList<>() : userPermissions;
   }
 }
