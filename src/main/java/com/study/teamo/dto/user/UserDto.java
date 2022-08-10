@@ -25,7 +25,7 @@ public class UserDto implements UserDetails {
   }
 
   public static UserDto from(User user) {
-    return UserDto.builder().id(user.getId()).auth(user.getAuth()).password(user.getPassword())
+    return UserDto.builder().id(user.getName()).auth(user.getAuth()).password(user.getPassword())
         .build();
   }
 

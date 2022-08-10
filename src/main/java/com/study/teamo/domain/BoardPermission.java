@@ -41,8 +41,8 @@ public class BoardPermission {
   public BoardPermission() {
   }
 
-  public String getUsers() {
-    return this.user.getId();
+  public String getUserName() {
+    return this.user.getName();
   }
 
   public void addPermission(Board board, User user) {

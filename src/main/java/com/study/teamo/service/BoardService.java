@@ -4,9 +4,7 @@ import com.study.teamo.domain.Board;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.dto.board.CreateBoardDto;
 import com.study.teamo.dto.board.UpdateBoardDto;
-import com.study.teamo.repository.BoardPermissionRepository;
 import com.study.teamo.repository.BoardRepository;
-import com.study.teamo.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +19,14 @@ public class BoardService {
   @Autowired
   private final BoardRepository boardRepository;
 
+  @Autowired
+  private final BoardPermissionService boardPermissionService;
+
   @Transactional
   public BoardDto createBoard(CreateBoardDto request) {
-    Board board = new Board(request.getTitle(), request.getContent(), request.getPermissions());
+    Board board = new Board(request.getTitle(), request.getContent());
     boardRepository.save(board);
+    boardPermissionService.addBoardPermissionToUsers(board.getId(), request.getUserPermissions());
     return BoardDto.from(board);
   }
 
@@ -54,6 +56,10 @@ public class BoardService {
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
     board.setTitle(request.getTitle());
     board.setContent(request.getContent());
+
+//    List<Long> permissionedUserIds = boardPermissionService.getPermissionedUserIdsByBoardID(id);
+//    List<BoardPermission> request.getPermissions();
+
     return BoardDto.from(board);
   }
 }

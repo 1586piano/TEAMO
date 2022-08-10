@@ -33,6 +33,8 @@ public class Board extends BaseEntity {
   @Column(name = "TITLE", length = 100, nullable = false)
   private String title;
 
+  //TODO Owner가 없음
+
   @Setter
   @Column(name = "CONTENTS", length = 1000)
   private String content;
@@ -41,11 +43,10 @@ public class Board extends BaseEntity {
   @OneToMany(mappedBy = "board")
   private List<BoardPermission> permissions = new ArrayList<>();
 
-  public Board(String title, String content, List<BoardPermission> permissions) {
+  public Board(String title, String content) {
     super();
     this.title = title;
     this.content = content;
-    this.permissions = permissions;
   }
 }
 
