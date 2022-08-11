@@ -42,6 +42,7 @@ public class BoardPermissionService {
     return BoardDto.from(board);
   }
 
+  //TODO 수정은 생성자(OWNER)만 가능하게 한다.
   @Transactional
   public BoardDto modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
 
