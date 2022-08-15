@@ -4,6 +4,8 @@ import com.study.teamo.domain.User;
 import com.study.teamo.dto.user.UserDto;
 import com.study.teamo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,8 +30,18 @@ public class UserDetailServiceImpl implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다.")));
   }
 
-  //TODO 현재 사용자 여부 확인을 위해 사용자를 반환하는 메소드 필요
-  public User getCurrentUser(){
-    return ;
+  /**
+   * 현재 사용자 여부 확인을 위해 사용자를 반환하는 메소드
+   *
+   * @return User
+   * @throws UsernameNotFoundException 유저가 없을 때 예외 발생
+   */
+  public User getCurrentUser() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    UserDetails userDetails = (UserDetails) principal;
+
+    String username = userDetails.getUsername();
+    return userRepository.findUserByName(username)
+        .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
   }
 }
