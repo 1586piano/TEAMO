@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardPermissionService {
 
   @Autowired
+  UserDetailServiceImpl userDetailsServiceImpl;
+
+  @Autowired
   private final BoardRepository boardRepository;
 
   @Autowired
@@ -42,16 +45,21 @@ public class BoardPermissionService {
     return BoardDto.from(board);
   }
 
+  //TODO 수정은 생성자(OWNER)만 가능하게 한다.
   @Transactional
   public BoardDto modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
-
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
+
+    if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
+      throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
+    }
 
     for (Long userId : users) {
       User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
+
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
 
     System.out.println("board : " + boardPermissions.get(0).getBoard().getTitle());

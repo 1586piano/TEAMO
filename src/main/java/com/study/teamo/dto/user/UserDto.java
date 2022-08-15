@@ -13,19 +13,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class UserDto implements UserDetails {
 
-  private String id;
+  private String name;
   private String auth;
   private String password;
 
   @Builder
-  public UserDto(String id, String auth, String password) {
-    this.id = id;
+  public UserDto(String name, String auth, String password) {
+    this.name = name;
     this.auth = auth;
     this.password = password;
   }
 
   public static UserDto from(User user) {
-    return UserDto.builder().id(user.getName()).auth(user.getAuth()).password(user.getPassword())
+    return UserDto.builder().name(user.getName()).auth(user.getAuth()).password(user.getPassword())
         .build();
   }
 
@@ -47,7 +47,7 @@ public class UserDto implements UserDetails {
 
   @Override
   public String getUsername() {
-    return id;
+    return name;
   }
 
   // 계정 만료 여부 반환

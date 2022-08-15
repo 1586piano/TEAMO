@@ -33,8 +33,6 @@ public class Board extends BaseEntity {
   @Column(name = "TITLE", length = 100, nullable = false)
   private String title;
 
-  //TODO Owner가 없음
-
   @Setter
   @Column(name = "CONTENTS", length = 1000)
   private String content;

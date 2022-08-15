@@ -28,7 +28,6 @@ public abstract class BaseEntity {
   @Column(nullable = true)
   private String lastModifiedBy;
 
-  //TODO 기록되지 않음
   @CreatedBy
   @Column(updatable = false, nullable = true)
   private String createdBy;
