@@ -22,6 +22,9 @@ public class BoardService {
   @Autowired
   private final BoardPermissionService boardPermissionService;
 
+  @Autowired
+  UserDetailServiceImpl userDetailsServiceImpl;
+
   @Transactional
   public BoardDto createBoard(CreateBoardDto request) {
     Board board = new Board(request.getTitle(), request.getContent());
@@ -54,6 +57,11 @@ public class BoardService {
   public BoardDto updateBoard(Long id, UpdateBoardDto request) {
     Board board = boardRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+
+    if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
+      throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
+    }
+
     board.setTitle(request.getTitle());
     board.setContent(request.getContent());
 
