@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -36,6 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
    * @return User
    * @throws UsernameNotFoundException 유저가 없을 때 예외 발생
    */
+  @Transactional(readOnly = true)
   public User getCurrentUser() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     UserDetails userDetails = (UserDetails) principal;
