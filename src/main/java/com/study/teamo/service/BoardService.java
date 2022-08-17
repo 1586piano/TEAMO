@@ -58,6 +58,7 @@ public class BoardService {
     Board board = boardRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
 
+    //TODO 테스트 작성
     if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
       throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
     }
@@ -65,6 +66,7 @@ public class BoardService {
     board.setTitle(request.getTitle());
     board.setContent(request.getContent());
 
+    //TODO 게시글 권한 수정 추가
 //    List<Long> permissionedUserIds = boardPermissionService.getPermissionedUserIdsByBoardID(id);
 //    List<BoardPermission> request.getPermissions();
 
