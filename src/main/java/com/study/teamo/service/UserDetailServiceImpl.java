@@ -1,6 +1,6 @@
 package com.study.teamo.service;
 
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.auth.User;
 import com.study.teamo.dto.user.UserDto;
 import com.study.teamo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

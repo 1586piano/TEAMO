@@ -1,4 +1,4 @@
-package com.study.teamo.domain;
+package com.study.teamo.domain.board;
 
 import com.study.teamo.BaseEntity;
 import java.util.ArrayList;

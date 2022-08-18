@@ -1,5 +1,6 @@
-package com.study.teamo.domain;
+package com.study.teamo.domain.board;
 
+import com.study.teamo.domain.auth.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

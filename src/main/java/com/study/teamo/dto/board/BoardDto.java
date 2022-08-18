@@ -1,6 +1,6 @@
 package com.study.teamo.dto.board;
 
-import com.study.teamo.domain.Board;
+import com.study.teamo.domain.board.Board;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

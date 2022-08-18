@@ -1,8 +1,8 @@
 package com.study.teamo.service;
 
-import com.study.teamo.domain.Board;
-import com.study.teamo.domain.BoardPermission;
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.board.Board;
+import com.study.teamo.domain.board.BoardPermission;
+import com.study.teamo.domain.auth.User;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.repository.BoardPermissionRepository;
 import com.study.teamo.repository.BoardRepository;

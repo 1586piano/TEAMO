@@ -1,5 +1,6 @@
-package com.study.teamo.domain;
+package com.study.teamo.domain.auth;
 
+import com.study.teamo.domain.board.BoardPermission;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;

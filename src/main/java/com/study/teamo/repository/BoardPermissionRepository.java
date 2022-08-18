@@ -1,6 +1,6 @@
 package com.study.teamo.repository;
 
-import com.study.teamo.domain.BoardPermission;
+import com.study.teamo.domain.board.BoardPermission;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

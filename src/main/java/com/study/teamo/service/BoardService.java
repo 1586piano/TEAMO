@@ -1,6 +1,6 @@
 package com.study.teamo.service;
 
-import com.study.teamo.domain.Board;
+import com.study.teamo.domain.board.Board;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.dto.board.CreateBoardDto;
 import com.study.teamo.dto.board.UpdateBoardDto;

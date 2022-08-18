@@ -1,6 +1,6 @@
 package com.study.teamo.dto.user;
 
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.auth.User;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
