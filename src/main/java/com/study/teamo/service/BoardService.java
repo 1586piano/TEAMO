@@ -1,6 +1,6 @@
 package com.study.teamo.service;
 
-import com.study.teamo.domain.Board;
+import com.study.teamo.domain.board.Board;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.dto.board.CreateBoardDto;
 import com.study.teamo.dto.board.UpdateBoardDto;
@@ -58,15 +58,18 @@ public class BoardService {
     Board board = boardRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
 
-    if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
+    List<Long> authorizedUsers = boardPermissionService.getPermissionedUserIdsByBoardID(
+        board.getId());
+
+    //TODO 테스트 작성
+    if (!authorizedUsers.contains(userDetailsServiceImpl.getCurrentUser().getId())) {
       throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
     }
 
+    boardPermissionService.modifyBoardPermissionToUsers(board.getId(),
+        request.getUserPermissions());
     board.setTitle(request.getTitle());
     board.setContent(request.getContent());
-
-//    List<Long> permissionedUserIds = boardPermissionService.getPermissionedUserIdsByBoardID(id);
-//    List<BoardPermission> request.getPermissions();
 
     return BoardDto.from(board);
   }

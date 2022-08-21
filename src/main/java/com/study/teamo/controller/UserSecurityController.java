@@ -1,6 +1,6 @@
 package com.study.teamo.controller;
 
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.auth.User;
 import com.study.teamo.dto.user.CreateUserDto;
 import com.study.teamo.dto.user.LoginUserDto;
 import com.study.teamo.dto.user.UserDto;

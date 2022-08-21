@@ -1,8 +1,8 @@
 package com.study.teamo.service;
 
-import com.study.teamo.domain.Board;
-import com.study.teamo.domain.BoardPermission;
-import com.study.teamo.domain.User;
+import com.study.teamo.domain.board.Board;
+import com.study.teamo.domain.board.BoardPermission;
+import com.study.teamo.domain.auth.User;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.repository.BoardPermissionRepository;
 import com.study.teamo.repository.BoardRepository;
@@ -45,14 +45,14 @@ public class BoardPermissionService {
     return BoardDto.from(board);
   }
 
-  //TODO 수정은 생성자(OWNER)만 가능하게 한다.
+  //TODO BoardPermission 수정 시, 삭제되는 Permission 제거 후 새로운 Permission 추가하도록 수정
   @Transactional
-  public BoardDto modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
+  public void modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
     if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
-      throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
+      throw new IllegalArgumentException("게시물 권한 수정 권한이 없는 사용자입니다.");
     }
 
     for (Long userId : users) {
@@ -66,7 +66,6 @@ public class BoardPermissionService {
     for (BoardPermission boardPermission : boardPermissions) {
       System.out.println(boardPermission.getUser());
     }
-    return BoardDto.from(board);
   }
 
   @Transactional
