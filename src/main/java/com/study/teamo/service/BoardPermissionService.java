@@ -47,12 +47,12 @@ public class BoardPermissionService {
 
   //TODO BoardPermission 수정 시, 삭제되는 Permission 제거 후 새로운 Permission 추가하도록 수정
   @Transactional
-  public BoardDto modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
+  public void modifyBoardPermissionToUsers(Long boardId, List<Long> users) {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
     if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
-      throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
+      throw new IllegalArgumentException("게시물 권한 수정 권한이 없는 사용자입니다.");
     }
 
     for (Long userId : users) {
@@ -66,7 +66,6 @@ public class BoardPermissionService {
     for (BoardPermission boardPermission : boardPermissions) {
       System.out.println(boardPermission.getUser());
     }
-    return BoardDto.from(board);
   }
 
   @Transactional
