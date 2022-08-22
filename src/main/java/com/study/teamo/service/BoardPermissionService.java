@@ -1,13 +1,15 @@
 package com.study.teamo.service;
 
+import com.study.teamo.domain.auth.User;
 import com.study.teamo.domain.board.Board;
 import com.study.teamo.domain.board.BoardPermission;
-import com.study.teamo.domain.auth.User;
 import com.study.teamo.dto.board.BoardDto;
 import com.study.teamo.repository.BoardPermissionRepository;
 import com.study.teamo.repository.BoardRepository;
 import com.study.teamo.repository.UserRepository;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,17 +57,29 @@ public class BoardPermissionService {
       throw new IllegalArgumentException("게시물 권한 수정 권한이 없는 사용자입니다.");
     }
 
-    for (Long userId : users) {
-      User user = userRepository.findById(userId)
-          .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-    }
+//    for (Long userId : users) {
+//      User user = userRepository.findById(userId)
+//          .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+//    }
 
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
 
-    System.out.println("board : " + boardPermissions.get(0).getBoard().getTitle());
-    for (BoardPermission boardPermission : boardPermissions) {
-      System.out.println(boardPermission.getUser());
-    }
+    //board에 권한을 가진 기존 사용자 ID 추출
+    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getId())
+        .collect(
+            Collectors.toList());
+    //board에 권한을 가질 새로운 사용자 ID 중복없이 추출
+    Set<Long> userIdsToBeGrantedPermissions = users.stream().collect(Collectors.toSet());
+    //기존에 부여된, 삭제될 권한 추출 (새로 추가될 권한과 중복되는 것을 제외하고)
+    alreadyUserIdsWithPermissions.removeAll(userIdsToBeGrantedPermissions);
+    //기존에 부여된 권한 삭제
+    alreadyUserIdsWithPermissions.stream().forEach(p -> boardRepository.deleteById(p));
+
+    addBoardPermissionToUsers(boardId, (List<Long>) userIdsToBeGrantedPermissions);
+//    System.out.println("board : " + boardPermissions.get(0).getBoard().getTitle());
+//    for (BoardPermission boardPermission : boardPermissions) {
+//      System.out.println(boardPermission.getUser());
+//    }
   }
 
   @Transactional
