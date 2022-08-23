@@ -36,13 +36,10 @@ public class BoardPermissionService {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
-    BoardPermission boardPermission = new BoardPermission();
-
     for (Long userId : users) {
       User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-      boardPermission.addPermission(board, user);
-      boardPermissionRepository.save(boardPermission);
+      boardPermissionRepository.save(new BoardPermission(board, user));
     }
     return BoardDto.from(board);
   }
