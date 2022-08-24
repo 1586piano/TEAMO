@@ -29,9 +29,8 @@ public class BoardService {
   public BoardDto createBoard(CreateBoardDto request) {
     Board board = new Board(request.getTitle(), request.getContent());
     boardRepository.save(board);
-    //TODO 생성 시 권한이 제대로 부여되지 않음
-    boardPermissionService.addBoardPermissionToUsers(board.getId(), request.getUserPermissions());
-    return BoardDto.from(board);
+    return boardPermissionService.addBoardPermissionToUsers(board.getId(),
+        request.getUserPermissions());
   }
 
   @Transactional(readOnly = true)

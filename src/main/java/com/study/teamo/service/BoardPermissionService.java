@@ -39,9 +39,10 @@ public class BoardPermissionService {
     for (Long userId : users) {
       User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-      boardPermissionRepository.save(new BoardPermission(board, user));
+      BoardPermission boardPermission = new BoardPermission(board, user);
+      board.addPermission(boardPermission);
+      boardPermissionRepository.save(boardPermission);
     }
-    //TODO boardPermissionsRepository에 정상 저장되는 것은 확인하였으나, 반환 시 authorizedUserNames 를 확인 할 수 없는 문제 해결 필요
     return BoardDto.from(board);
   }
 
