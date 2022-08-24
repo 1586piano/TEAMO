@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class BoardDto {
 
+  private final Long id;
   private final String title;
   private final String content;
   private final LocalDateTime createdDateTIme;
@@ -20,24 +21,26 @@ public class BoardDto {
   private final List<String> authorizedUserNames;
 
   @Builder
-  public BoardDto(String title, String content, LocalDateTime createdDateTIme,
+  public BoardDto(Long id, String title, String content, LocalDateTime createdDateTIme,
       LocalDateTime lastModifiedTime, String lastModifiedBy, String createdBy,
       List<String> authorizedUserNames) {
+    this.id = id;
     this.title = title;
     this.content = content;
     this.createdDateTIme = createdDateTIme;
     this.lastModifiedTime = lastModifiedTime;
     this.lastModifiedBy = lastModifiedBy;
     this.createdBy = createdBy;
-    this.authorizedUserNames = authorizedUserNames == null ? new ArrayList<>() : authorizedUserNames;
+    this.authorizedUserNames =
+        authorizedUserNames == null ? new ArrayList<>() : authorizedUserNames;
   }
 
   public static BoardDto from(Board board) {
-    return BoardDto.builder().title(board.getTitle()).content(board.getContent())
+    return BoardDto.builder().id(board.getId()).title(board.getTitle()).content(board.getContent())
         .createdDateTIme(board.getCreatedDateTIme()).lastModifiedTime(board.getLastModifiedTime())
         .lastModifiedBy(board.getLastModifiedBy()).createdBy(board.getCreatedBy())
         .authorizedUserNames(board.getPermissions() == null ? new ArrayList<>()
-            : board.getPermissions().stream().map(bp -> bp.getUserName()).collect(
+                : board.getPermissions().stream().map(bp -> bp.getUserName()).collect(
                 Collectors.toList())).build();
   }
 }
