@@ -45,4 +45,8 @@ public class BoardPermission {
   public String getUserName() {
     return this.user.getName();
   }
+
+  public Long getUserId() {
+    return this.user.getId();
+  }
 }
