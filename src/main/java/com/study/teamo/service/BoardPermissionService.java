@@ -52,14 +52,10 @@ public class BoardPermissionService {
     Board board = boardRepository.findById(boardId)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
 
+    //TODO 게시물 권한 수정은 생성자만 가능하도록 한다. 하지만 변화가 없더라도 update시 이 로직은 수행되게 되어 있음. 어떻게 반영할 것인지?
     if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
-      throw new IllegalArgumentException("게시물 권한 수정 권한이 없는 사용자입니다.");
+      throw new IllegalArgumentException("게시물 권한 수정은 생성자만 가능합니다.");
     }
-
-//    for (Long userId : users) {
-//      User user = userRepository.findById(userId)
-//          .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-//    }
 
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
 
