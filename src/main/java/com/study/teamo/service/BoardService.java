@@ -60,14 +60,10 @@ public class BoardService {
 
     List<Long> authorizedUsers = boardPermissionService.getPermissionedUserIdsByBoardID(
         board.getId());
-
-    //TODO 테스트 작성
     if (!authorizedUsers.contains(userDetailsServiceImpl.getCurrentUser().getId())) {
       throw new IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.");
     }
 
-    boardPermissionService.modifyBoardPermissionToUsers(board.getId(),
-        request.getUserPermissions());
     board.setTitle(request.getTitle());
     board.setContent(request.getContent());
 
