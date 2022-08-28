@@ -46,5 +46,15 @@ public class Board extends BaseEntity {
     this.title = title;
     this.content = content;
   }
+
+  public Board(String title, String content, List<BoardPermission> permissions) {
+    super();
+    this.title = title;
+    this.content = content;
+  }
+
+  public void addPermission(BoardPermission permission) {
+    permissions.add(permission);
+  }
 }
 
