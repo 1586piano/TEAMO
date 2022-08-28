@@ -29,8 +29,9 @@ public class BoardService {
   public BoardDto createBoard(CreateBoardDto request) {
     Board board = new Board(request.getTitle(), request.getContent());
     boardRepository.save(board);
-    return boardPermissionService.addBoardPermissionToUsers(board.getId(),
+    boardPermissionService.addBoardPermissionToUsers(board.getId(),
         request.getUserPermissions());
+    return BoardDto.from(board);
   }
 
   @Transactional(readOnly = true)
