@@ -1,8 +1,8 @@
 package com.study.teamo.dto.boardpermission;
 
+import com.study.teamo.domain.board.BoardPermission;
 import com.study.teamo.dto.board.SimpleBoardDto;
 import com.study.teamo.dto.user.SimpleUserDto;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,11 +10,16 @@ import lombok.Getter;
 public class BoardPermissionDto {
 
   private final SimpleBoardDto board;
-  private final List<SimpleUserDto> users;
+  private final SimpleUserDto users;
 
   @Builder
-  public BoardPermissionDto(SimpleBoardDto board, List<SimpleUserDto> users) {
+  public BoardPermissionDto(SimpleBoardDto board, SimpleUserDto users) {
     this.board = board;
     this.users = users;
+  }
+
+  public static BoardPermissionDto from(BoardPermission boardPermission) {
+    return BoardPermissionDto.builder().board(SimpleBoardDto.from(boardPermission.getBoard()))
+        .users(SimpleUserDto.from(boardPermission.getUser())).build();
   }
 }
