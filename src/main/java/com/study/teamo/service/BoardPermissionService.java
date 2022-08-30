@@ -63,7 +63,7 @@ public class BoardPermissionService {
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
 
     //board에 권한을 가진 기존 사용자 ID 추출
-    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getId())
+    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getUserId())
         .collect(
             Collectors.toList());
     //board에 권한을 가질 새로운 사용자 ID 중복없이 추출
@@ -72,10 +72,11 @@ public class BoardPermissionService {
     //기존에 부여된, 삭제될 권한 추출 (새로 추가될 권한과 중복되는 것을 제외하고)
     alreadyUserIdsWithPermissions.removeAll(userIdsToBeGrantedPermissions);
     //기존에 부여된 권한 삭제
-    alreadyUserIdsWithPermissions.stream().forEach(p -> boardRepository.deleteById(p));
+    alreadyUserIdsWithPermissions.stream()
+        .forEach(p -> boardPermissionRepository.deleteByBoardIdAndUserId(boardId, p));
 
     return addBoardPermissionToUsers(boardId,
-        (List<Long>) userIdsToBeGrantedPermissions);
+        new ArrayList<>(userIdsToBeGrantedPermissions));
   }
 
   public List<SimpleUserDto> getPermissionedUserByBoardID(Long boardId) {

@@ -4,6 +4,7 @@ import com.study.teamo.domain.auth.User;
 import com.study.teamo.domain.board.BoardPermission;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,9 @@ public interface BoardPermissionRepository extends JpaRepository<BoardPermission
 
   @Query("select bp.user from BoardPermission bp where board_id=:boardId")
   public List<User> getUserByBoardId(@Param("boardId") Long boardId);
+
+  @Modifying
+  @Query("delete from BoardPermission where board_id=:boardId and user_id=:userId")
+  public void deleteByBoardIdAndUserId(@Param("boardId") Long boardId,
+      @Param("userId") Long userId);
 }
