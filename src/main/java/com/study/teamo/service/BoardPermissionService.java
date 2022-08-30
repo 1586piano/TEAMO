@@ -63,7 +63,7 @@ public class BoardPermissionService {
     List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
 
     //board에 권한을 가진 기존 사용자 ID 추출
-    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getId())
+    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getUserId())
         .collect(
             Collectors.toList());
     //board에 권한을 가질 새로운 사용자 ID 중복없이 추출
