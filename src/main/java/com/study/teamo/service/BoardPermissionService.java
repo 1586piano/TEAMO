@@ -76,7 +76,7 @@ public class BoardPermissionService {
         .forEach(p -> boardPermissionRepository.deleteByBoardIdAndUserId(boardId, p));
 
     return addBoardPermissionToUsers(boardId,
-        (List<Long>) userIdsToBeGrantedPermissions);
+        new ArrayList<>(userIdsToBeGrantedPermissions));
   }
 
   public List<SimpleUserDto> getPermissionedUserByBoardID(Long boardId) {
