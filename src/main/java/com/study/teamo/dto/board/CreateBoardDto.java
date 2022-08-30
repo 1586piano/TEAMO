@@ -15,6 +15,7 @@ public class CreateBoardDto {
   @NotNull(message = "content must not be null")
   private final String content;
 
+  //TODO Board 생성 시, UserPermission이 같이 입력되는 것이 자연스럽지 않은가?
   private final List<Long> userPermissions;
 
   @Builder
