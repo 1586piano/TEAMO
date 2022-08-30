@@ -72,7 +72,8 @@ public class BoardPermissionService {
     //기존에 부여된, 삭제될 권한 추출 (새로 추가될 권한과 중복되는 것을 제외하고)
     alreadyUserIdsWithPermissions.removeAll(userIdsToBeGrantedPermissions);
     //기존에 부여된 권한 삭제
-    alreadyUserIdsWithPermissions.stream().forEach(p -> boardRepository.deleteById(p));
+    alreadyUserIdsWithPermissions.stream()
+        .forEach(p -> boardPermissionRepository.deleteByBoardIdAndUserId(boardId, p));
 
     return addBoardPermissionToUsers(boardId,
         (List<Long>) userIdsToBeGrantedPermissions);
