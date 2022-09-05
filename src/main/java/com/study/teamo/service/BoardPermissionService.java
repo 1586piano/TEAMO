@@ -88,4 +88,24 @@ public class BoardPermissionService {
   public List<Long> getPermissionedUserIdsByBoardID(Long boardId) {
     return boardPermissionRepository.getUserIdsByBoardId(boardId);
   }
+
+  @Transactional
+  public void deleteAllBoardPermissions(Long boardId) {
+    Board board = boardRepository.findById(boardId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 보드입니다."));
+
+    if (board.getCreatedBy() != userDetailsServiceImpl.getCurrentUser().getName()) {
+      throw new IllegalArgumentException("게시물 권한 삭제는 생성자만 가능합니다.");
+    }
+
+    List<BoardPermission> boardPermissions = boardPermissionRepository.getByBoardId(boardId);
+
+    //board에 권한을 가진 기존 사용자 ID 추출
+    List<Long> alreadyUserIdsWithPermissions = boardPermissions.stream().map(bp -> bp.getUserId())
+        .collect(
+            Collectors.toList());
+        //기존에 부여된 권한 삭제
+    alreadyUserIdsWithPermissions.stream()
+        .forEach(p -> boardPermissionRepository.deleteByBoardIdAndUserId(boardId, p));
+  }
 }

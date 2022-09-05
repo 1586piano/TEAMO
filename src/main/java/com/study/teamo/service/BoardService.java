@@ -51,6 +51,13 @@ public class BoardService {
   public void deleteBoard(Long id) {
     Board board = boardRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+
+    List<Long> authorizedUsers = boardPermissionService.getPermissionedUserIdsByBoardID(
+        board.getId());
+    if (!authorizedUsers.contains(userDetailsServiceImpl.getCurrentUser().getId())) {
+      throw new IllegalArgumentException("게시물 삭제 권한이 없는 사용자입니다.");
+    }
+    boardPermissionService.deleteAllBoardPermissions(board.getId());
     boardRepository.delete(board);
   }
 
